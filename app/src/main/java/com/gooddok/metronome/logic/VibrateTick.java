@@ -14,6 +14,6 @@ public class VibrateTick implements Tick {
     @Override
     public void make() {
         // Vibrate for 500 milliseconds
-        vibrator.vibrate(500);
+        vibrator.vibrate(50);
     }
 }

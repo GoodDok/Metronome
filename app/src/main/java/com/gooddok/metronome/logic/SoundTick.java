@@ -4,7 +4,7 @@ import android.media.AudioManager;
 import android.media.ToneGenerator;
 
 public class SoundTick implements Tick {
-    private ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+    private ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 80);
 
     @Override
     public void make() {
