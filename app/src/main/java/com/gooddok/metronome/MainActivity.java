@@ -13,8 +13,10 @@ import com.gooddok.metronome.logic.TickerController;
 import com.gooddok.metronome.logic.VibrateTick;
 
 public class MainActivity extends Activity {
-    private int minSpeed = 40;
-    private int maxSpeed = 208;
+
+    public static final int minSpeed = 40;
+    public static final int maxSpeed = 208;
+
     private TickerController tickerController;
 
     @Override
@@ -22,6 +24,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        initialize ticker controller and seek bar
         SeekBar seekBar = (SeekBar) findViewById(R.id.mySeekBar);
         seekBar.setMax(maxSpeed - minSpeed);
         tickerController = new TickerController(minSpeed + seekBar.getProgress());
@@ -45,6 +48,7 @@ public class MainActivity extends Activity {
 
 
         ToggleButton toggle = (ToggleButton) findViewById(R.id.toggleButton);
+        tickerController.setTick(toggle.isChecked()? new SoundTick() : new VibrateTick());
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -65,15 +69,19 @@ public class MainActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The sound is enabled
-                    Ticker.setTick(soundTick);
+                    tickerController.setTick(soundTick);
                 } else {
                     // The sound is disabled
-                    Ticker.setTick(vibrateTick);
+                    tickerController.setTick(vibrateTick);
                 }
             }
         });
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        tickerController.stopTicker();
+        super.onDestroy();
+    }
 }

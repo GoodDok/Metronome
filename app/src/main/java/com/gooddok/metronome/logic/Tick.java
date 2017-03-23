@@ -5,5 +5,5 @@ package com.gooddok.metronome.logic;
  */
 
 public interface Tick {
-    void make();
+    void make(int lengthMillisec);
 }

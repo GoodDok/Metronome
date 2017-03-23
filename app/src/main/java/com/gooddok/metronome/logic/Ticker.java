@@ -1,18 +1,10 @@
 package com.gooddok.metronome.logic;
 
-/**
- * Created by Константин on 22.03.2017.
- */
-
 public class Ticker implements Runnable {
-    private static Tick tick = new VibrateTick();
 
-    public static void setTick(Tick tick) {
-        Ticker.tick = tick;
-    }
-
-    public static Tick getTick() {
-        return tick;
+    private TickerController controller;
+    public Ticker(TickerController controller) {
+        this.controller = controller;
     }
 
     @Override
@@ -22,6 +14,8 @@ public class Ticker implements Runnable {
     }
 
     private void makeTick() {
-        tick.make();
+        if (controller != null && controller.getTick() != null) {
+            controller.getTick().make(controller.getTickLength());
+        }
     }
 }
