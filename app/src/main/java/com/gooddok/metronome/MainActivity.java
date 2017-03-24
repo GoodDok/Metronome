@@ -4,18 +4,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.gooddok.metronome.logic.SoundTick;
-import com.gooddok.metronome.logic.Ticker;
 import com.gooddok.metronome.logic.TickerController;
 import com.gooddok.metronome.logic.VibrateTick;
 
 public class MainActivity extends Activity {
 
-    public static final int minSpeed = 40;
-    public static final int maxSpeed = 208;
+    public static final int MIN_SPEED = 40;
+    public static final int MAX_SPEED = 208;
 
     private TickerController tickerController;
 
@@ -26,13 +24,13 @@ public class MainActivity extends Activity {
 
 //        initialize ticker controller and seek bar
         SeekBar seekBar = (SeekBar) findViewById(R.id.mySeekBar);
-        seekBar.setMax(maxSpeed - minSpeed);
-        tickerController = new TickerController(minSpeed + seekBar.getProgress());
+        seekBar.setMax(MAX_SPEED - MIN_SPEED);
+        tickerController = new TickerController(MIN_SPEED + seekBar.getProgress());
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tickerController.setTicksPerMinute(minSpeed + progress);
+                tickerController.setTicksPerMinute(MIN_SPEED + progress);
             }
 
             @Override

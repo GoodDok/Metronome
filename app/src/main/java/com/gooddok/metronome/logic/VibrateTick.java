@@ -9,7 +9,7 @@ public class VibrateTick implements Tick {
     private Vibrator vibrator = (Vibrator) MyApplication.getAppContext().getSystemService(Context.VIBRATOR_SERVICE);
 
     @Override
-    public void make(int lengthMillisec) {
-        vibrator.vibrate(lengthMillisec);
+    public void make() {
+        vibrator.vibrate(100);
     }
 }

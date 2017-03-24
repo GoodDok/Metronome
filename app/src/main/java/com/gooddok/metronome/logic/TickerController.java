@@ -1,5 +1,7 @@
 package com.gooddok.metronome.logic;
 
+import com.gooddok.metronome.MainActivity;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -9,12 +11,10 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 public class TickerController {
 
-    private int ticksPerMinute;
     private ScheduledFuture<?> tickerHandle;
     private Tick tick;
     private int tickEveryInMilliSec;
-    private int tickLength;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
 
     public Tick getTick() {
         return tick;
@@ -24,18 +24,15 @@ public class TickerController {
         this.tick = tick;
     }
 
-    public int getTickLength() {
-        return tickLength;
-    }
-
     public TickerController(int ticksPerMinute) {
         this.setTicksPerMinute(ticksPerMinute);
     }
 
     public void setTicksPerMinute(int ticksPerMinute) {
-        this.ticksPerMinute = ticksPerMinute;
-        this.tickEveryInMilliSec = 60 * 1000 / this.ticksPerMinute;
-        this.tickLength = this.tickEveryInMilliSec / 3;
+        if (ticksPerMinute < MainActivity.MIN_SPEED || ticksPerMinute > MainActivity.MAX_SPEED){
+            throw new IllegalArgumentException();
+        }
+        this.tickEveryInMilliSec = 60 * 1000 / ticksPerMinute;
         if (tickerHandle != null){
             restartTicker();
         }

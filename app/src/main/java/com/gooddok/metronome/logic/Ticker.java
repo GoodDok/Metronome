@@ -1,9 +1,9 @@
 package com.gooddok.metronome.logic;
 
-public class Ticker implements Runnable {
+class Ticker implements Runnable {
 
     private TickerController controller;
-    public Ticker(TickerController controller) {
+    Ticker(TickerController controller) {
         this.controller = controller;
     }
 
@@ -15,7 +15,7 @@ public class Ticker implements Runnable {
 
     private void makeTick() {
         if (controller != null && controller.getTick() != null) {
-            controller.getTick().make(controller.getTickLength());
+            controller.getTick().make();
         }
     }
 }
